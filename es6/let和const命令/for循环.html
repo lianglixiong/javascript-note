@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，
+		而循环体内部是一个单独的子作用域。-->
+	</body>
+	<script type="text/javascript">
+		for(let i = 0; i < 3; i++) {
+			let i = 'abc';
+			console.log(i);
+		}
+		// abc
+		// abc
+		// abc
+	</script>
+	<!--上面代码正确运行，输出了3次abc。这表明函数内部的变量i与循环变量i不在同一个作用域，
+	有各自单独的作用域。-->
+
+</html>

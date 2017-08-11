@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--函数还可以作为某个对象的方法调用，这时this就指这个上级对象。-->
+	</body>
+	<script type="text/javascript">
+		function test() {　　　　
+			alert(this.x);　　
+		}　　
+		var o = {};　　
+		o.x = 1;　　
+		o.m = test;　　
+		o.m(); // 1
+	</script>
+
+</html>

@@ -1,0 +1,120 @@
+//
+// Modals
+// --------------------------------------------------
+.popdiv-footer {
+  padding: 7px 10px 5px;
+  margin-bottom: 0;
+  text-align: right; // right align buttons
+  background-color: #f1f4f5;
+  .border-radius(0 0 6px 6px);
+  .box-shadow(inset 0 1px 0 @white);
+  .clearfix(); // clear it in case folks use .pull-* classes on buttons
+
+  // Properly space out buttons
+  .sui-btn + .sui-btn {
+    margin-left: 7px;
+    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // but override that for button groups
+  .sui-btn-group .sui-btn + .sui-btn {
+    margin-left: -1px;
+  }
+  // and override it for block buttons as well
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}
+
+.overspread {
+  top: -1px;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+}
+// Background
+.sui-modal-backdrop {
+  position: fixed;
+  .overspread;
+  z-index: @zindexModalBackdrop;
+  // Fade for backdrop
+  &.fade { opacity: 0; }
+}
+
+.sui-modal-backdrop,
+.sui-modal-backdrop.fade.in {
+  .opacity(40);
+}
+// modal shade
+.sui-modal .shade {
+  position: absolute;
+  .overspread;
+  &.in {.opacity(40);}
+}
+
+// Base modal
+.sui-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -220px;
+  z-index: @zindexModal;
+  width: 440px;
+  background-color: @white;
+  border: 5px solid #b2b2b2;
+  border: 5px solid rgba(178,178,178,.3);
+  .box-shadow(0 3px 7px rgba(0,0,0,0.3));
+  .background-clip(padding-box);
+  // Remove focus outline from opened modal
+  outline: none;
+
+  &.fade {
+    .transition(e('opacity .3s linear, top .3s ease-out'));
+    top: -25%;
+  }
+  &.fade.in {
+    top: 50%;
+  }
+
+  .modal-header {
+    padding: 6px 0;
+    margin: 0 10px;
+    border-bottom: 1px solid #b7b7b7;
+    // Heading
+    h3 {
+      margin: 0;
+      line-height: 30px;
+    }
+    .modal-title{
+      margin: 0;
+    }
+  }
+
+  // Body (where all modal content resides)
+  .modal-body {
+    position: relative;
+    overflow-y: auto;
+    min-height: 100px;
+    max-height: 550px;
+    margin: 0;
+    padding: 10px 15px;
+    &.no-foot{
+      min-height: 190px;
+    }
+
+  }
+
+  // Remove bottom margin if need be
+  .modal-form {
+    margin-bottom: 0;
+  }
+
+  // Footer (for actions)
+  .modal-footer {
+    .popdiv-footer()
+  }
+
+}
+.tooltip-footer {
+  .popdiv-footer()
+}
+

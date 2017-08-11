@@ -1,0 +1,43 @@
+//
+// Layouts
+// --------------------------------------------------
+
+
+// Container (centered, fixed-width layouts)
+.sui-container {
+  .container-fixed();
+}
+
+// Fluid layouts (left aligned, with sidebar, min- & max-width content)
+.sui-container-fluid {
+  padding-right: @gridGutterWidth;
+  padding-left: @gridGutterWidth;
+  .clearfix();
+}
+
+// 2 & 3 column layout
+
+.sui-layout > {
+  position: relative;
+  .sidebar {
+    width: @layoutSidebarWidth;
+    float: left;
+  }
+  .sidebar + .sidebar {
+    float: right;
+  }
+  .content + .sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .content {
+    margin-left: @layoutSidebarWidth + 15px;
+  }
+
+  &.layout3 {
+    > .content {
+      margin-right: @layoutSidebarWidth + 15px;
+    }
+  }
+}

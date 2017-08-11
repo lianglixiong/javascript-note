@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>写一个JS对比时间的例子</title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		function compareTime(a, b) {
+			var arr = a.split("-"); //log [2016,04,06]
+			var start = new Date(arr[0], (arr[1] - 1), arr[2]);
+			var starts = start.getTime(); //输出时间戳进行对比
+			var arrs = b.split("-");
+			var end = new Date(arrs[0], (arrs[1] - 1), arrs[2]);
+			var ends = end.getTime();
+			if(starts >= ends)
+				console.log('开始时间大于结束时间');
+			else
+				console.log('开始时间小于结束时间');
+		}
+		compareTime('2016-05-03', '2016-05-04');
+	</script>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+//		上面这些规则在Nodejs上面好像不怎么准确。
+//		比如：
+		var x = 1;
+
+		function test() {
+			console.log(this.x);
+		}
+		test(); //不是1，因为nodejs没有全局这个概念，在一个js文件里，
+//		最上层的对象不是全局对象，而是对应于这个文件的module对象。所以在nodejs里面上面的规则就不适应了。
+	</script>
+
+</html>

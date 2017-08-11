@@ -1,0 +1,51 @@
+//
+// Labels and badges
+// --------------------------------------------------
+
+
+// Base classes
+.sui-label {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: @baseFontSize * .846;
+  line-height: @fontSizeLarge; // ensure proper line-height if floated
+  color: @white;
+  vertical-align: baseline;
+  white-space: nowrap;
+  background-color: @grayLight;
+  .border-radius(1px);
+  cursor: default;
+}
+
+// Empty labels/badges collapse
+.sui-label:empty {
+  display: none;
+}
+
+
+// Colors
+.sui-label {
+  // danger (red)
+  &.label-danger         { background-color: @errorText; }
+  // Warnings (orange)
+  &.label-warning           { background-color: @orange; }
+  // Success (green)
+  &.label-success           { background-color: @successText; }
+  // Info (turquoise)
+  &.label-info              { background-color: @infoText; }
+  // Inverse (black)
+  &.label-inverse           { background-color: @grayDark; }
+}
+
+// Quick fix for labels in buttons
+.sui-btn {
+  .sui-label {
+    position: relative;
+    top: -1px;
+  }
+}
+.btn-mini {
+  .sui-label {
+    top: 0;
+  }
+}

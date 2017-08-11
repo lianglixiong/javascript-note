@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<!--类型：请求方式GET / POST
+	网址：请求地址
+	async：布尔类型，默认为true表示请求是否为异步，如果为false表示为同步。
+	数据类型：返回的数据类型
+	JSONP：传递给请求处理程序或页面的，用以获得JSONP回调函数名的参数名（一般默认为：回调）
+	jsonpCallback： “？” 自定义的JSONP回调函数名称，默认为jQuery的自动生成的随机函数名，也可以写，jQuery的会自动为你处理数据
+	成功：调用成功执行的函数
+	错误：异常处理函数-->
+	<body>
+	</body>
+	<script type="text/javascript">
+		$.ajax({
+            url:'index.php',
+            type:'get',
+            dataType:'jsonp',
+            //jsonp:'JSON_CALLBACK',
+            jsonpCallback:'JSON_CALLBACK',
+            success:function(data){
+                console.log(data)
+            }
+        })
+	</script>
+</html>

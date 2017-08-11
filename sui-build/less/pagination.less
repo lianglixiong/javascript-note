@@ -1,0 +1,343 @@
+//
+// sui-pagination (multiple pages)
+// --------------------------------------------------
+
+// Space out sui-pagination from surrounding content
+.sui-pagination {
+  margin: @baseLineHeight 0;
+}
+
+.sui-pagination ul {
+  // Allow for text-based alignment
+  display: inline-block;
+  // Reset default ul styles
+  margin-left: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+  // Visuals
+  //.box-shadow(0 1px 2px rgba(0,0,0,.05));
+}
+.sui-pagination ul > li {
+  display: inline; // Remove list-style and block-level defaults
+}
+.sui-pagination ul > li > a,
+.sui-pagination ul > li > span {
+  /*
+  float: left; // Collapse white-space
+  padding: @sui-paginationPadding;  
+  line-height: @baseLineHeight;
+  text-decoration: none;
+  background-color: @sui-paginationBackground;
+  border: 1px solid @sui-paginationBorder;
+  border-left-width: 0;
+*/
+
+  position: relative;
+  float: left; // Collapse white-space
+  padding: @paginationPadding;
+  line-height: @baseLineHeight;
+  text-decoration: none;
+  color: @linkColor;
+  background-color: @paginationBackground;
+  border: 1px solid @paginationBorder;
+  margin-left: -1px; //Collapse the border
+   > i.sui-icon {
+        line-height: @baseLineHeight;
+   }
+}
+.sui-pagination ul > li > a:hover,
+.sui-pagination ul > li > a:focus {
+  color: @white;
+  background-color: @btnPrimaryBackgroundHighlight;
+  border-color: @btnPrimaryBackgroundHighlight;
+    
+}
+.sui-pagination ul > .active > a,
+.sui-pagination ul > .active > span {
+  background-color: @paginationActiveBackground;
+  color: @white; 
+  border-color: @paginationActiveBackground;
+  cursor: default;
+  &:hover, &:focus {
+      //reset a:hover, do not change if active
+      background-color: @paginationActiveBackground;
+      color: @white; 
+      border-color: @paginationActiveBackground;
+  }
+}
+
+.sui-pagination ul > .dotted > span,
+.sui-pagination ul > .dotted > a {
+  border-top: none;
+  border-bottom: none;  
+}
+.sui-pagination ul > .disabled > span,
+.sui-pagination ul > .disabled > a,
+.sui-pagination ul > .disabled > a:hover,
+.sui-pagination ul > .disabled > a:focus {
+  color: @grayLight;
+  background-color: transparent;
+  cursor: default;
+}
+//next&prev btn, depends on the disabled attribute
+.sui-pagination ul {
+    > .prev, > .next {
+        > span, > a {
+            background-color: @paginationBtnColor;
+        }
+    }
+    & > .disabled.prev, .disabled.next {
+        > span:hover, > span:focus, > a:hover, > a:focus {
+            background-color: @paginationBtnColor; //do not change backgroundColor if is disabled
+            border-color: @paginationBorder;
+        }
+    }
+}
+/*
+.sui-pagination ul > .disabled.prev > a:hover {
+    background-color: #00F;
+}
+*/
+/*
+.sui-pagination ul > li:first-child > a,
+.sui-pagination ul > li:first-child > span {
+  border-left-width: 1px;
+}
+*/
+/*
+.sui-pagination ul > li:last-child > a,
+.sui-pagination ul > li:last-child > span {
+}
+*/
+
+//sui-pagination controller
+//按钮右移
+/*
+.sui-pagination {
+    div {
+        display: inline-block;
+        position: relative;
+        width: 200px;
+        .page-num {
+            margin: 0px;
+            .border-radius(0);
+            width: 52px;
+            position: relative;
+            z-index: 1;
+            + .page-confirm {
+                .singleTransition(left);
+                vertical-align: top;
+                .border-radius(0);
+                position: absolute;
+                left: 55px;
+                z-index: 0;
+            }
+        }
+        .page-num:focus {
+            + .page-confirm {
+                left: 117px;
+            }
+        }
+       
+
+    }
+}
+*/
+
+.sui-pagination {
+    //非主流分页器
+    .prev + .prev,.next + .next {
+        a {
+            margin-left: 5px;
+        }
+    }
+    .ex-page-num {
+        .sui-form > .input-default;
+        width: 18px;
+        float: left;
+        margin: 0px 5px;
+        .border-radius(0);
+    }
+    //输入框拉长
+    div {
+        display: inline-block;
+        color: @paginationExPageStatus;
+        .page-num {
+            .sui-form > .input-default;
+            margin: 0px;
+            width: 15px;
+            .border-radius(0);
+            .singleTransition(width, 0.1s, linear, 0.1s);
+            + .page-confirm {
+                .sui-btn;
+                .btn-primary;
+                .border-radius(0);
+                vertical-align: top;
+            }
+        }
+        .page-num:focus {
+            width: 50px;
+            + .page-confirm {
+                display: inline-block;
+            }
+        }
+       
+
+    }
+}
+
+//输入框拉长 按钮显隐
+/*
+.sui-pagination {
+    div {
+        display: inline-block;
+        .page-num {
+            margin: 0px;
+            width: 15px;
+            .singleTransition(width);
+            + .page-confirm {
+                display: none;
+                .border-radius(0);
+            }
+        }
+        .page-num:focus {
+            width: 50px;
+            + .page-confirm {
+                display: inline-block;
+            }
+        }
+       
+
+    }
+}
+*/
+// Alignment
+// --------------------------------------------------
+
+.pagination-centered {
+  text-align: center;
+}
+.pagination-right {
+  text-align: right;
+}
+
+
+// Sizing
+// --------------------------------------------------
+
+// Large
+.pagination-large {
+  ul > li > a,
+  ul > li > span {
+    padding: @paginationPaddingLarge;
+    font-size: @fontSizeLarge;
+  }
+  div {
+    font-size: @fontSizeLarge;
+      .page-num {
+          .sui-form > .input-fat;
+          + .page-confirm {
+              .sui-btn;
+              .btn-large;
+              .btn-primary;
+              .border-radius(0);
+              vertical-align: top;
+          }
+      }
+  }
+  .ex-page-num {
+      .sui-form > .input-fat;
+  }
+}
+// xlarge
+
+.pagination-xlarge {
+  ul > li > a,
+  ul > li > span {
+    padding: @paginationPaddingXLarge;
+    font-size: @fontSizeLarge;
+  }
+  div {
+      .page-num {
+          .sui-form > .input-xfat;
+          + .page-confirm {
+              .sui-btn;
+              .btn-xlarge;
+              .btn-primary;
+              .border-radius(0);
+              vertical-align: top;
+          }
+      }
+  }
+}
+
+// Small
+.pagination-small {
+  ul > li > a,
+  ul > li > span {
+    padding: @paginationPaddingSmall;
+    font-size: @fontSizeSmall;
+  }
+  div {
+      .page-num {
+          .sui-form > .input-thin;
+          + .page-confirm {
+              .sui-btn;
+              .btn-small;
+              .btn-primary;
+              .border-radius(0);
+              vertical-align: top;
+          }
+      }
+  }
+}
+//非主流分页器
+.sui-pagination {
+}
+.pagination-naked {
+    > ul {
+        > li {
+            > a,span {
+                border: none;
+                background-color: transparent !important;
+                padding: @paginationNakedPadding;
+                font-size: @baseFontSize;
+                &:hover {
+                    color: @linkColor;
+                }
+                > i {
+                    line-height: @baseLineHeight;
+                }
+            }
+        }
+    }
+   .ex-page-num {
+       & + span {
+            color: @paginationExPageStatus;
+            padding: 4px 0px;
+            &:before {
+                content: "/";
+            }
+            &:hover {
+                color: @paginationExPageStatus;
+            }
+       } 
+   }
+   
+     
+}
+.pagination-naked.pagination-large {
+    > ul {
+        > li {
+          a,span {
+              padding: @paginationNakedPaddingLarge;
+              font-size: @fontSizeLarge;
+              &.ex-page-status {
+                  padding: 4px 10px;
+                  color: @paginationExPageStatus;
+              }
+          }
+        }
+    }
+
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+//		当然我们可以继承多个构造函数，这就是多重​​继承
+
+		function animal(a, b) {
+            this.type = 'animal'
+            this.behavior = function(){
+                console.log(this.type+" is running")
+            }
+        }
+
+        function wsscat(a, b) {
+            this.age = 0
+        }
+
+        function cat(a, b) {
+            this.name = 'wsscat'
+            //这里call的意思就是把animal的方法应用到cat这个对象身上
+            //所以cat就继承了animal的方法
+            animal.call(this);
+            wsscat.call(this);
+        }
+
+        console.log(new cat())
+	</script>
+</html>

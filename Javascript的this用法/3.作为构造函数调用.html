@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--所谓构造函数，就是通过这个函数生成一个新对象（object）。这时，this就指这个新对象。-->
+	</body>
+	<script type="text/javascript">
+		function test() {　　　　
+			this.x = 1;　　
+		}　　
+		var o = new test();　　
+		alert(o.x); // 1
+
+		//		运行结果为1。为了表明这时this不是全局对象，我对代码做一些改变：
+		var x = 2;　　
+		function test() {　　　　
+			this.x = 1;　　
+		}　　
+		var o = new test();　　
+		alert(x); //2
+//		运行结果为2，表明全局变量x的值根本没变
+	</script>
+
+</html>

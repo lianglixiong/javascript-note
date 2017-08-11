@@ -1,0 +1,840 @@
+//
+// Forms
+// --------------------------------------------------
+
+
+// GENERAL STYLES
+// --------------
+
+// Make all forms have space below them
+.sui-form {
+  margin: 0 0 @baseMargin;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  // Groups of fields with labels on top (legends)
+  legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: @baseLineHeight;
+    font-size: @baseFontSize * 1.5;
+    line-height: @baseLineHeight * 2;
+    color: @grayDark;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+
+    // Small
+    small {
+      font-size: @baseLineHeight * .75;
+      color: @grayLight;
+    }
+  }
+
+
+  .input-default {
+    display: inline-block;
+    height: @baseLineHeight;
+    // padding: 4px 6px;
+    // margin-bottom: @baseLineHeight / 2;
+    padding: @inputDefaultPaddingTB @inputDefaultPaddingLR;
+    font-size: @baseFontSize;
+    line-height: @baseLineHeight;
+    color: @gray;
+    .border-radius(@inputBorderRadius);
+    vertical-align: middle;
+    background-color: @inputBackground;
+    border: 1px solid @inputBorder;
+    .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+    .transition(~"border linear .2s, box-shadow linear .2s");
+
+    // Focus state
+    &:focus {
+      border-color: @inputBorderActive;
+      outline: 0;
+      outline: thin dotted \9; /* IE6-9 */
+    }
+  }
+
+
+  // Form controls
+  // -------------------------
+
+  // Shared size and type resets
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  .uneditable-input {
+    .input-default;
+  }
+  textarea {
+    height: auto;
+    resize: none;
+  }
+  // Position radios and checkboxes better
+  input[type="radio"],
+  input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+  }
+
+  // Reset width of input images, buttons, radios, checkboxes
+  input[type="file"],
+  input[type="image"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"] {
+    width: auto; // Override of generic input selector
+  }
+
+  // Set the height of select and file controls to match text inputs
+  select,
+  input[type="file"] {
+    height: @inputHeight; /* In IE7, the height of the select element cannot be changed by height, only font-size */
+    *margin-top: 4px; /* For IE7, add top margin to align select with labels */
+    line-height: @inputHeight;
+  }
+
+  // Make select elements obey height by applying a border
+  select {
+    // width: 220px; // default input width + 10px of padding that doesn't get applied
+    border: 1px solid @inputBorder;
+    background-color: @inputBackground; // Chrome on Linux and Mobile Safari need background-color
+  }
+
+  // Make multiple select elements height not fixed
+  select[multiple],
+  select[size] {
+    height: auto;
+  }
+
+  // Focus for select, file, radio, and checkbox
+  select:focus,
+  input[type="file"]:focus,
+  input[type="radio"]:focus,
+  input[type="checkbox"]:focus {
+    .tab-focus();
+  }
+
+
+  // Uneditable inputs
+  // -------------------------
+
+  // Make uneditable inputs look inactive
+  .uneditable-input,
+  .uneditable-textarea {
+    color: @grayLight;
+    background-color: darken(@inputBackground, 1%);
+    border-color: @inputBorder;
+    .box-shadow(inset 0 1px 2px rgba(0,0,0,.025));
+    cursor: not-allowed;
+  }
+
+  // For text that needs to appear as an input but should not be an input
+  .uneditable-input {
+    overflow: hidden; // prevent text from wrapping, but still cut it off like an input does
+    white-space: nowrap;
+  }
+
+  // Make uneditable textareas behave like a textarea
+  .uneditable-textarea {
+    width: auto;
+    height: auto;
+  }
+
+
+  // Placeholder
+  // -------------------------
+
+  // Placeholder text gets special styles because when browsers invalidate entire lines if it doesn't understand a selector
+  input,
+  textarea {
+    .placeholder();
+  }
+
+
+  // CHECKBOXES & RADIOS
+  // -------------------
+
+  // Indent the labels to position radios/checkboxes as hanging
+  .radio,
+  .checkbox {
+    // min-height: @baseLineHeight; // clear the floating input if there is no label text
+    // padding-left: 20px;
+
+    display: block;
+    
+    // 关联样式
+    + .radio,
+    + .checkbox {
+      margin-top: 5px;
+    }
+  }
+
+  // Radios and checkboxes on same line
+  // TODO v3: Convert .inline to .control-inline
+  .radio.inline,
+  .checkbox.inline {
+    display: inline-block;
+    margin-top: 0;
+
+    // 关联样式
+    + .radio.inline,
+    + .checkbox.inline {
+      margin-left: 6px;
+    }
+  }
+
+
+  // INPUT SIZES
+  // -----------
+
+  // General classes for quick sizes
+  // 定义表单控件常用宽度尺寸
+  .input-mini       { width: @inputMiniWidth; }
+  .input-small      { width: @inputSmallWidth; }
+  .input-medium     { width: @inputMediumWidth; }
+  .input-large      { width: @inputLargeWidth; }
+  .input-xlarge     { width: @inputXLargeWidth; }
+  .input-xxlarge    { width: @inputXXLargeWidth; }
+
+  // 定义表单控件常用高度尺寸
+  .input-thin {
+    padding-top: @inputThinPaddingTB;
+    padding-bottom: @inputThinPaddingTB;
+  }
+  .input-default {
+    padding-top: @inputDefaultPaddingTB;
+    padding-bottom: @inputDefaultPaddingTB;
+  }
+  .input-fat {
+    padding-top: @inputFatPaddingTB;
+    padding-bottom: @inputFatPaddingTB;
+  }
+  .input-xfat {
+    padding-top: @inputXFatPaddingTB;
+    padding-bottom: @inputXFatPaddingTB;
+    font-size: @fontSizeLarge;
+    line-height: @lineHeightLarge;
+  }
+
+  // 重置大号和加大号表单控件左右padding
+  .input-fat {
+    padding-right: @inputLargePaddingLR;
+    padding-left: @inputLargePaddingLR;
+  }
+  .input-xfat {
+    padding-right: @inputLargePaddingLR;
+    padding-left: @inputLargePaddingLR;
+  }
+
+  // 重置文本控件尺寸
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  .uneditable-input {
+    // 重置宽度尺寸
+    &.input-mini       { .inputFieldSize(@width: @inputMiniWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+    &.input-small      { .inputFieldSize(@width: @inputSmallWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+    &.input-medium     { .inputFieldSize(@width: @inputMediumWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+    &.input-large      { .inputFieldSize(@width: @inputLargeWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+    &.input-xlarge     { .inputFieldSize(@width: @inputXLargeWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+    &.input-xxlarge    { .inputFieldSize(@width: @inputXXLargeWidth, @paddingL: @inputDefaultPaddingLR, @paddingR: @inputDefaultPaddingLR); }
+
+    // 重置高度尺寸
+    &.input-thin { .input-thin; }
+    &.input-default { .input-default; }
+
+    // 对大号和加大号文本控件重置宽高尺寸
+    &.input-fat {
+      .input-fat;
+      &.input-mini       { .inputFieldSize(@width: @inputMiniWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-small      { .inputFieldSize(@width: @inputSmallWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-medium     { .inputFieldSize(@width: @inputMediumWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-large      { .inputFieldSize(@width: @inputLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-xlarge     { .inputFieldSize(@width: @inputXLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-xxlarge    { .inputFieldSize(@width: @inputXXLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+    }
+    &.input-xfat {
+      .input-xfat;
+      &.input-mini       { .inputFieldSize(@width: @inputMiniWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-small      { .inputFieldSize(@width: @inputSmallWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-medium     { .inputFieldSize(@width: @inputMediumWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-large      { .inputFieldSize(@width: @inputLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-xlarge     { .inputFieldSize(@width: @inputXLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+      &.input-xxlarge    { .inputFieldSize(@width: @inputXXLargeWidth, @paddingL: @inputLargePaddingLR, @paddingR: @inputLargePaddingLR); }
+    }
+  }
+
+  // 重置select高度
+  select {
+    &.input-thin { height: @inputThinHeight; }
+    &.input-default { height: @inputDefaultHeight; }
+    &.input-fat { height: @inputFatHeight; }
+    &.input-xfat { height: @inputXFatHeight; }
+  }
+
+  // Grid style input sizes
+  input[class*="span"],
+  select[class*="span"],
+  textarea[class*="span"],
+  .uneditable-input[class*="span"],
+  // Redeclare since the fluid row class is more specific
+  .row-fluid input[class*="span"],
+  .row-fluid select[class*="span"],
+  .row-fluid textarea[class*="span"],
+  .row-fluid .uneditable-input[class*="span"] {
+    float: none;
+    margin-left: 0;
+  }
+
+  // Ensure input-prepend/append never wraps
+  .input-append input[class*="span"],
+  .input-append .uneditable-input[class*="span"],
+  .input-prepend input[class*="span"],
+  .input-prepend .uneditable-input[class*="span"],
+  .row-fluid input[class*="span"],
+  .row-fluid select[class*="span"],
+  .row-fluid textarea[class*="span"],
+  .row-fluid .uneditable-input[class*="span"],
+  .row-fluid .input-prepend [class*="span"],
+  .row-fluid .input-append [class*="span"] {
+    display: inline-block;
+  }
+
+
+  // GRID SIZING FOR INPUTS
+  // ----------------------
+
+  // Grid sizes
+  #grid > .input(@gridColumnWidth, @gridGutterWidth);
+
+  // Control row for multiple inputs per line
+  .controls-row {
+    .clearfix(); // Clear the float from controls
+  }
+
+  // Float to collapse white-space for proper grid alignment
+  .controls-row [class*="span"],
+  // Redeclare the fluid grid collapse since we undo the float for inputs
+  .row-fluid .controls-row [class*="span"] {
+    float: left;
+  }
+
+  .row-fluid {
+    + .row-fluid {
+      margin-top: @baseLineHeight / 2;
+    }
+  }
+
+
+  // DISABLED STATE
+  // --------------
+
+  // Disabled and read-only inputs
+  input[disabled],
+  select[disabled],
+  textarea[disabled],
+  input[readonly],
+  select[readonly],
+  textarea[readonly] {
+    cursor: not-allowed;
+    background-color: @inputDisabledBackground;
+  }
+  // Explicitly reset the colors here
+  input[type="radio"][disabled],
+  input[type="checkbox"][disabled],
+  input[type="radio"][readonly],
+  input[type="checkbox"][readonly] {
+    background-color: transparent;
+  }
+
+  // Warning
+  .warning {
+    .formFieldState(@warningText, @warningText, @warningBackground);
+  }
+  // Error
+  .error {
+    .formFieldState(@errorText, @errorText, @errorBackground);
+  }
+  // Success
+  .success {
+    .formFieldState(@successText, @successText, @successBackground);
+  }
+  // Info
+  .info {
+    .formFieldState(@infoText, @infoText, @infoBackground);
+  }
+
+  // HTML5 invalid states
+  // Shares styles with the .control-group.error above
+  input:focus:invalid,
+  textarea:focus:invalid,
+  select:focus:invalid {
+    color: #b94a48;
+    border-color: #ee5f5b;
+    &:focus {
+      border-color: darken(#ee5f5b, 10%);
+      // @shadow: 0 0 6px lighten(#ee5f5b, 20%);
+    }
+  }
+
+
+  // -------------------------
+
+  // Warning
+  .input-warning {
+    .inputFieldState(@warningText, @warningText, @warningBackground);
+  }
+
+  // Error
+  .input-error {
+    .inputFieldState(@errorText, @errorText, @errorBackground);
+  }
+
+  // Success
+  .input-success {
+    .inputFieldState(@successText, @successText, @successBackground);
+  }
+
+  // Info
+  .input-info {
+    .inputFieldState(@infoText, @infoText, @infoBackground);
+  }
+
+  // 继承文本字段四态
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"] {
+    &.input-warning {
+      .input-warning;
+    }
+    &.input-success {
+      .input-success;
+    }
+    &.input-error {
+      .input-error;
+    }
+    &.input-info {
+      .input-info;
+    }
+  }
+
+
+  // -------------------------
+
+  .input-date {
+      background-image: url(data:image/png;base64,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);
+      background-position: right center;
+      background-repeat: no-repeat;
+  }
+
+
+  // FORM ACTIONS
+  // ------------
+
+  &.form-actions {
+    padding: (@baseLineHeight - 1) 20px @baseLineHeight;
+    margin-top: @baseLineHeight;
+    margin-bottom: @baseLineHeight;
+    background-color: @formActionsBackground;
+    border-top: 1px solid #e5e5e5;
+    .clearfix(); // Adding clearfix to allow for .pull-right button containers
+  }
+
+
+  // HELP TEXT
+  // ---------
+
+  .help-block,
+  .help-inline {
+    color: lighten(@textColor, 15%); // lighten the text some for contrast
+  }
+
+  .help-block {
+    display: block; // account for any element using help-block
+
+    // margin-bottom: @baseLineHeight / 2;
+    margin-top: @baseLineHeight / 2;
+  }
+
+  .help-inline {
+    display: inline-block;
+    margin-left: 6px;
+    .ie7-inline-block();
+    vertical-align: middle;
+  }
+
+
+  // INPUT GROUPS
+  // ------------
+
+  // Allow us to put symbols and text within the input field for a cleaner look
+  .input-append,
+  .input-prepend {
+    display: inline-block;
+    margin-bottom: @baseLineHeight / 2;
+    vertical-align: middle;
+    font-size: 0; // white space collapse hack
+    white-space: nowrap; // Prevent span and input from separating
+
+    // Reset the white space collapse hack
+    input,
+    select,
+    .uneditable-input,
+    .dropdown-menu,
+    .popover {
+      font-size: @baseFontSize;
+    }
+
+    input,
+    select,
+    .uneditable-input {
+      position: relative; // placed here by default so that on :focus we can place the input above the .add-on for full border and box-shadow goodness
+      margin-bottom: 0; // prevent bottom margin from screwing up alignment in stacked forms
+      *margin-left: 0;
+      vertical-align: top;
+      .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+      // Make input on top when focused so blue border and shadow always show
+      &:focus {
+        z-index: 2;
+      }
+    }
+    .add-on {
+      display: inline-block;
+      width: auto;
+      height: @baseLineHeight;
+      min-width: 16px;
+      padding: 4px 5px;
+      font-size: @baseFontSize;
+      font-weight: normal;
+      line-height: @baseLineHeight;
+      text-align: center;
+      text-shadow: 0 1px 0 @white;
+      background-color: @grayLighter;
+      border: 1px solid #ccc;
+    }
+    .add-on,
+    .btn,
+    .btn-group > .dropdown-toggle {
+      vertical-align: top;
+      .border-radius(0);
+    }
+    .active {
+      background-color: lighten(@green, 30);
+      border-color: @green;
+    }
+  }
+
+  .input-inner {
+    .input-append;
+    input {
+      .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+    }
+    .add-on {
+      margin-right: -1px;
+    }
+    .add-on + input {
+      .border-radius( 0 @inputBorderRadius @inputBorderRadius 0);
+    }
+  }
+
+  .input-prepend {
+    .add-on,
+    .btn {
+      margin-right: -1px;
+    }
+    .add-on:first-child,
+    .btn:first-child {
+      // FYI, `.btn:first-child` accounts for a button group that's prepended
+      .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+    }
+  }
+
+  .input-append {
+    input,
+    select,
+    .uneditable-input {
+      .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+      + .btn-group .btn:last-child {
+        .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+      }
+    }
+    .add-on,
+    .btn,
+    .btn-group {
+      margin-left: -1px;
+    }
+    .add-on:last-child,
+    .btn:last-child,
+    .btn-group:last-child > .dropdown-toggle {
+      .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+    }
+  }
+
+  // Remove all border-radius for inputs with both prepend and append
+  .input-prepend.input-append {
+    input,
+    select,
+    .uneditable-input {
+      .border-radius(0);
+      + .btn-group .btn {
+        .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+      }
+    }
+    .add-on:first-child,
+    .btn:first-child {
+      margin-right: -1px;
+      .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+    }
+    .add-on:last-child,
+    .btn:last-child {
+      margin-left: -1px;
+      .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+    }
+    .btn-group:first-child {
+      margin-left: 0;
+    }
+  }
+
+
+  // SEARCH FORM
+  // -----------
+
+  input.search-query {
+    padding-right: 14px;
+    padding-right: 4px \9;
+    padding-left: 14px;
+    padding-left: 4px \9; /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0; // Remove the default margin on all inputs
+    .border-radius(15px);
+  }
+
+  /* Allow for input prepend/append in search forms */
+  &.form-search .input-append .search-query,
+  &.form-search .input-prepend .search-query {
+    .border-radius(0); // Override due to specificity
+  }
+  &.form-search .input-append .search-query {
+    .border-radius(14px 0 0 14px);
+  }
+  &.form-search .input-append .btn {
+    .border-radius(0 14px 14px 0);
+  }
+  &.form-search .input-prepend .search-query {
+    .border-radius(0 14px 14px 0);
+  }
+  &.form-search .input-prepend .btn {
+    .border-radius(14px 0 0 14px);
+  }
+
+
+  // HORIZONTAL & VERTICAL FORMS
+  // ---------------------------
+
+  // Common properties
+  // -----------------
+
+  &.form-search,
+  &.form-inline,
+  &.form-horizontal {
+    input,
+    textarea,
+    select,
+    .help-inline,
+    .uneditable-input,
+    .input-prepend,
+    .input-append {
+      display: inline-block;
+      .ie7-inline-block();
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+    // Re-hide hidden elements due to specifity
+    .hide {
+      display: none;
+    }
+  }
+  &.form-search label,
+  &.form-inline label,
+  &.form-search .btn-group,
+  &.form-inline .btn-group {
+    display: inline-block;
+  }
+  // Remove margin for input-prepend/-append
+  &.form-search .input-append,
+  &.form-inline .input-append,
+  &.form-search .input-prepend,
+  &.form-inline .input-prepend {
+    margin-bottom: 0;
+  }
+  // Inline checkbox/radio labels (remove padding on left)
+  &.form-search .radio,
+  &.form-search .checkbox,
+  &.form-inline .radio,
+  &.form-inline .checkbox {
+    padding-left: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+
+  // Margin to space out fieldsets
+  .control-group {
+    margin-bottom: @baseLineHeight / 2;
+  }
+
+  .control-label {
+    display: block;
+    line-height: 24px;
+  }
+
+  // Legend collapses margin, so next element is responsible for spacing
+  legend + .control-group {
+    margin-top: @baseLineHeight;
+    -webkit-margin-top-collapse: separate;
+  }
+
+
+  // Horizontal-specific styles
+  // --------------------------
+
+  &.form-horizontal {
+    // Increase spacing between groups
+    .control-group {
+      margin-bottom: @baseLineHeight;
+      display: table;
+    }
+
+    // Float the labels left
+    .control-label {
+      width: @horizontalComponentOffset;
+      text-align: right;
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .v-top {
+        vertical-align: top;
+    }
+    .v-bottom {
+        vertical-align: bottom;    
+    }
+
+    // Move over all input controls and content
+    .controls {
+      // Super jank IE7 fix to ensure the inputs in .input-append and input-prepend
+      // don't inherit the margin of the parent, in this case .controls
+      display: table-cell;
+      //margin-left: 3px; 对table-cell设置margin无效
+      padding-left: 3px;
+      &:first-child {
+        *padding-left: @horizontalComponentOffset;
+      }
+    }
+
+    // Remove bottom margin on block level help text since that's accounted for on .control-group
+    .help-block {
+      margin-top: 0;
+    }
+    // And apply it only to .help-block instances that follow a form control
+    input,
+    select,
+    textarea,
+    .uneditable-input,
+    .input-prepend,
+    .input-append,
+    // 添加radio和checkbox
+    .radio,
+    .radio-pretty,
+    .checkbox-pretty,
+    .sui-dropdown,
+    .checkbox {
+      ~ .help-block {
+        margin-top: @baseLineHeight / 2;
+      }
+    }
+    // Move over buttons in .form-actions to align with .controls
+    &.form-actions {
+      padding-left: @horizontalComponentOffset;
+    }
+  }
+  
+    
+    //带图标的input
+    .input-control {
+      display: inline-block;
+      position: relative;
+      .sui-icon {
+        position: absolute;
+        color: #aaa;
+        font-size: 14px;
+        left: 6px;
+        top: 5px;
+      }
+      .input-thin + .sui-icon {
+        top: 4px;
+        font-size: 12px;
+      }
+      .input-fat + .sui-icon {
+        top: 7px;
+      }
+      .input-xfat + .sui-icon {
+        top: 8px;
+        font-size: 16px;
+      }
+      input:focus {
+        ~ .sui-icon {
+          display: none;
+        }
+      }
+      &.control-right {
+        .sui-icon {
+          left: auto;
+          right: 6px;
+        }
+      }
+    }
+}

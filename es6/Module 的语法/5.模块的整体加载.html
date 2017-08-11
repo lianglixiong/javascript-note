@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<!--除了指定加载某个输出值，还可以使用整体加载，即用星号（*）指定一个对象，
+	所有输出值都加载在这个对象上面。-->
+
+	<!--下面是一个circle.js文件，它输出两个方法area和circumference。-->
+	<script type="text/javascript">
+		// circle.js
+
+		export function area(radius) {
+			return Math.PI * radius * radius;
+		}
+
+		export function circumference(radius) {
+			return 2 * Math.PI * radius;
+		}
+	</script>
+	<!--现在，加载这个模块。-->
+	<script type="text/javascript">
+		// main.js
+
+		import { area, circumference } from './circle';
+
+		console.log('圆面积：' + area(4));
+		console.log('圆周长：' + circumference(14));
+	</script>
+	<!--上面写法是逐一指定要加载的方法，整体加载的写法如下。-->
+	<script type="text/javascript">
+		import * as circle from './circle';
+
+		console.log('圆面积：' + circle.area(4));
+		console.log('圆周长：' + circle.circumference(14));
+	</script>
+	<!--注意，模块整体加载所在的那个对象（上例是circle），应该是可以静态分析的，所以不允许运行时改变。下面的写法都是不允许的。-->
+	<script type="text/javascript">
+		import * as circle from './circle';
+
+		// 下面两行都是不允许的
+		circle.foo = 'hello';
+		circle.area = function() {};
+	</script>
+
+</html>

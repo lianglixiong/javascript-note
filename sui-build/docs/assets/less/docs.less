@@ -1,0 +1,291 @@
+/* Add additional stylesheets below
+-------------------------------------------------- */
+/*
+  Bootstrap's documentation styles
+  Special styles for presenting Bootstrap's documentation and examples
+*/
+
+
+
+/* Body and structure
+-------------------------------------------------- */
+
+@import 'sidenav.less';
+
+body {
+  position: relative;
+  padding-top: 59px;
+  font-size: 14px;
+  background: #fbfbfb;
+}
+
+body > .sui-layout,
+body > .sui-layout > div > .content {
+  background: #fbfbfb;
+}
+
+
+html, body, .sui-layout,
+body > .sui-layout > div > .sidebar {
+  height: 100%;
+}
+/* Code in headings */
+h1 {
+  font-size: 32px;
+  line-height: 48px;
+}
+h3 code {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+
+/* Tweak navbar brand link to be super sleek
+-------------------------------------------------- */
+
+body > .sui-layout > div >.content {
+  padding: 0 25px;
+  margin-left: 210px;
+  overflow: hidden;
+}
+
+body > .sui-layout .sidebar {
+  width: 180px;
+  font-size: 14px;
+  line-height: 22px;
+  position: fixed;
+}
+
+.docs-sidenav {
+  width: 151px;
+}
+.docs-sidenav [class^="sui-icon"] {
+  font-size: 18px;
+  vertical-align: -2px;
+}
+.sui-nav.nav-xlarge > li > a {
+  padding: 10px 18px;
+}
+
+body > .sui-navbar {
+  font-size: 14px;
+}
+body > .sui-navbar .sui-brand {
+  padding: 3px;
+  font-size: 32px;
+  line-height: 48px;
+}
+body > .sui-navbar > .navbar-inner {
+  padding-left: 25px;
+  background-image: none;
+}
+body > .sui-navbar .sui-nav {
+  margin-left: 50px;
+}
+body > .sui-navbar .sui-nav > li > a {
+  padding: 19px;
+}
+
+/* Change the docs' brand */
+body > .navbar .brand {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 20px;
+  float: right;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+     -moz-transition: all .2s linear;
+          transition: all .2s linear;
+}
+body > .navbar .brand:hover {
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
+}
+
+
+.sui-page-header {
+  margin-left: 50px;
+  position: relative;
+  border-bottom: 1px solid #666;
+  padding: 0;
+  margin-top: 30px;
+}
+.sui-page-header:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url(../../pictures/title-arrow.png) no-repeat;
+  top: 4px;
+  left: -50px;
+}
+
+h1.sui-page-header:before {
+  top: 10px;
+}
+
+.demo-operations {
+  margin: 10px 0 40px 0;
+  list-style: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: #fbfbfb;
+}
+.demo-operations li {
+  float: left;
+  position: relative;
+  margin-right: 20px;
+}
+.demo-operations li .sui-msg {
+  position: absolute;
+  top: 25px;
+  left: -20px;
+  display: none;
+  width: 100px;
+}
+.copy-btn.zeroclipboard-is-hover {
+  text-decoration: underline;
+  color: #ff7300;
+}
+.bs-docs-example {
+  position: relative;
+  margin-bottom: 15px;
+  padding: 39px 19px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.bs-docs-example:after {
+  content: "示例";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+}
+
+.footer {
+  border-top: 1px solid #aaa;
+  padding: 30px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  margin-top: 50px;
+
+  li {
+    padding: 4px 0;
+  }
+}
+
+#themes-select {
+  .dropdown-toggle {
+    padding: 0;
+    margin-top: 15px;
+  }
+  .dropdown-toggle span {
+    text-indent: -9999px;
+  }
+  ul {
+    padding: 0 0 8px 8px;
+    min-width: 85px;
+    left: auto;
+    right: 0;
+  }
+  li {
+    float: left;
+    margin: 8px 8px 0 0px;
+  }
+  .dropdown-toggle span,
+  li a {
+    background: #28a3ef;
+    text-indent: -9999em;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-block;
+    &.default {
+      background: #28a3ef;
+    }
+    &.green {
+      background: #4a8e57;
+    }
+    &.pink {
+      background: #b654a7;
+    }
+    &.dark-green {
+      background: #518594;
+    }
+  }
+}
+.hidden-achor {
+  position: relative;
+  top: -100px;
+  left: 1em;
+  width: 1px;
+  height: 1px;
+  display: block;
+}
+
+@media (max-width: 1400px) {
+  .sui-navbar .sui-container {
+    width: auto;
+  }
+}
+@media (min-width: 1400px) {
+  .sui-layout,
+  .sui-navbar .sui-container {
+    width: 1400px;
+    margin: auto;
+  }
+}
+@media (min-width: 1400px) {
+  .sui-navbar .sui-container {
+    width: 1400px;
+    margin: auto;
+  }
+  body > .sui-layout > .content {
+    margin-left: 230px;
+  }
+}
+
+
+@media (max-width: 800px) {
+  body {
+    padding: 0;
+  }
+  body > .sui-layout {
+    > .sidebar {
+      position: static;
+      float: none;
+      height: auto;
+    }
+    > .content {
+      margin-left: 0;
+      padding: 10px;
+    }
+  }
+
+  body > .sui-layout > .sidebar {
+    width: auto;
+    height: auto;
+  }
+
+  .docs-sidenav {
+    width: auto;
+  }
+  body > .sui-navbar {
+    position: static;
+  }
+}

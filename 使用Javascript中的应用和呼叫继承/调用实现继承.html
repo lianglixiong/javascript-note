@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+//		拨打电话这里的意思就是把动物的方法应用到猫这个对象身上，也就是动物的属性创建到了猫里面，
+//		所以猫就继承了动物的方法
+
+		function animal(a, b) {
+            this.type = 'animal'
+            this.behavior = function(){
+                console.log(this.type+" is running")
+            }
+        }
+
+        function cat(a, b) {
+            this.name = 'wsscat'
+            //这里call的意思就是把animal的方法应用到cat这个对象身上
+            //所以cat就继承了animal的方法
+            animal.call(this);
+        }
+
+        console.log(new cat())
+	</script>
+</html>

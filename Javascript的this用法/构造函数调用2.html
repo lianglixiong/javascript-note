@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		var x = 2;　　
+		function test() {　　　　
+			this.x = 1;　　
+		}　　
+		var o = new test();
+		o.x = 3;
+		alert(o.x)　　
+		alert(x); //2
+//		这里的this指向实例对象,全局属性x没有被改变
+	</script>
+
+</html>

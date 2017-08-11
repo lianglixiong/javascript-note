@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+		<!--Javascript有六种基本数据类型（也就是简单数据类型），
+		它们分别是：Undefined，Null，Boolean，Symbol，Number和String。
+		还含有一种复杂数据类型，就是对象-->
+		
+		<!--注意Undefined和Null的区别，Undefined类型只有一个值，
+		就是undefined，Null类型也只有一个值，也就是null
+		Undefined其实就是已声明未赋值的变量输出的结果
+		null其实就是一个不存在的对象的结果-->
+	<script type="text/javascript">
+//		浅拷贝
+	var obj = {
+            name:'wsscat',
+            age:0
+        }
+        var obj2 = obj;
+        obj2['c'] = 5;
+        console.log(obj);//Object {name: "wsscat", age: 0, c: 5}
+        console.log(obj2);////Object {name: "wsscat", age: 0, c: 5}
+        
+//      深拷贝
+//对于数组我们可以使用slice()和concat()方法来解决上面的问题
+//slice方法
+		var arr = ['wsscat', 'autumns', 'winds'];
+        var arrCopy = arr.slice(0);
+        arrCopy[0] = 'tacssw'
+        console.log(arr)//['wsscat', 'autumns', 'winds']
+        console.log(arrCopy)//['tacssw', 'autumns', 'winds']
+        
+//      concat方法
+		var arr = ['wsscat', 'autumns', 'winds'];
+        var arrCopy = arr.concat();
+        arrCopy[0] = 'tacssw'
+        console.log(arr)//['wsscat', 'autumns', 'winds']
+        console.log(arrCopy)//['tacssw', 'autumns', 'winds']
+        
+//      对象我们可以定义一个新的对象并遍历新的属性上去实现深拷贝
+		var obj = {
+            name:'wsscat',
+            age:0
+        }
+
+        var obj2 = new Object();
+        obj2.name = obj.name;
+        obj2.age = obj.age
+
+        obj.name = 'autumns';
+        console.log(obj);//Object {name: "autumns", age: 0}
+        console.log(obj2);//Object {name: "wsscat", age: 0}
+        
+//      当然我们可以封装好一个方法来处理对象的深拷贝，代码如下
+		var obj = {
+            name: 'wsscat',
+            age: 0
+        }
+        var deepCopy = function(source) {
+            var result = {};
+            for(var key in source) {
+                if(typeof source[key] === 'object') {
+                    result[key] = deepCopy(source[key])
+                } else {
+                    result[key] = source[key]
+                }
+            }
+            return result;
+        }
+        var obj3 = deepCopy(obj)
+        obj.name = 'autumns';
+        console.log(obj);//Object {name: "autumns", age: 0}
+        console.log(obj3);//Object {name: "wsscat", age: 0}
+	</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		var a = [];
+		for(let i = 0; i < 10; i++) {
+			a[i] = function() {
+				console.log(i);
+			};
+			a[i]()//0,1,2,3......9
+		}
+		a[6](); // 6
+	</script>
+	<!--上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，
+	所以最后输出的是6。你可能会问，如果每一轮循环的变量i都是重新声明的，
+	那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 
+	引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算-->
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<!--首先JSON是一种基于文本的数据交换方式，叫做或者描述数据格式-->
+	<!--当一个|网页在请求的JavaScript文件时则不受是否跨域的影响，凡是拥有” SRC”这个属性的标签都拥有跨域的能力，-->
+	<!--比如<script>、<img>、<iframe>-->
+	<!--所以我们这里运用了脚本标签的跨域能力，让它用一个回调函数包裹着一段JSON格式的数据，-->
+	<!--当该数据返回到前端页面的时候，再我们这个执行就函数可以把数据读取出来-->
+	<!--前端代码-->
+	<!--jsonp.html-->
+	<body>
+		<button onclick="jsonpServer('jsonp.php')">JSONP</button>
+	</body>
+	<script>
+        function jsonpServer(url) {
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", url);
+            document.body.appendChild(script);
+        }   
+        function JSON_CALLBACK(data) {
+            console.log(data);
+        }
+    </script>
+</html>

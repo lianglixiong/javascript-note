@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<!--如果在一个模块之中，先输入后输出同一个模块，import语句可以与export语句写在一起。-->
+	<script type="text/javascript">
+		export {
+			foo,
+			bar
+		}
+		from 'my_module';
+
+		// 等同于
+		import { foo, bar } from 'my_module';
+		export {
+			foo,
+			bar
+		};
+	</script>
+	<!--上面代码中，export和import语句可以结合在一起，写成一行。-->
+
+	<!--模块的接口改名和整体输出，也可以采用这种写法。-->
+	<script type="text/javascript">
+		// 接口改名
+		export {
+			foo as myFoo
+		}
+		from 'my_module';
+
+		// 整体输出
+		export * from 'my_module';
+	</script>
+	<!--默认接口的写法如下。-->
+	<script type="text/javascript">
+		export {
+			default
+		}
+		from 'foo';
+	</script>
+	<!--具名接口改为默认接口的写法如下。-->
+	<script type="text/javascript">
+		export {
+			es6 as
+			default
+		}
+		from './someModule';
+
+		// 等同于
+		import { es6 } from './someModule';
+		export default es6;
+	</script>
+	<!--同样地，默认接口也可以改名为具名接口-->
+	<script type="text/javascript">
+		export {
+			default as es6
+		}
+		from './someModule';
+	</script>
+	<!--下面三种import语句，没有对应的复合写法。-->
+	<script type="text/javascript">
+		import * as someIdentifier from "someModule";
+		import someIdentifier from "someModule";
+		import someIdentifier, {
+			namedIdentifier
+		} from "someModule";
+	</script>
+
+	<!--为了做到形式的对称，现在有提案，提出补上这三种复合写法。-->
+	<script type="text/javascript">
+		export * as someIdentifier from "someModule";
+		export someIdentifier from "someModule";
+		export someIdentifier, {
+			namedIdentifier
+		}
+		from "someModule";
+	</script>
+
+</html>

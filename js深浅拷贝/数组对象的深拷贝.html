@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		Object.prototype.deepCopy = function() {
+			var obj = null; //用于最后返回一个对象，这个对象是深复制的结果
+			for(var attr in this) { //遍历这个对象的每一个属性
+				if(this.hasOwnProperty(attr)) { //主要是递归自有属性
+					if(typeof(this[attr] === 'object')) { //如果对象的属性是一个对象，就递归复制它的每一个属性
+						if(this[attr] === null) { //如果对象为null
+							obj[attr] = null;
+						} else if(Object.prototype.toString(this[attr]) === '[object Array]') { //如果是个数组
+							obj[attr] = [];
+							for(var i = 0; i < this[attr].length; i++) {
+								obj[attr].push(this[attr][i].deepCopy());
+							}
+						} else { //object
+							obj[attr] = this[attr].deepCopy();
+						}
+					} else {
+						obj[attr] = this[attr];
+					}
+				}
+			}
+			return obj;
+		}
+	</script>
+
+</html>

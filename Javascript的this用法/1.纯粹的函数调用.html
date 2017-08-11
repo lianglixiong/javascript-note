@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--这是函数的最通常用法，属于全局性调用，因此this就代表全局对象Global。
+		请看下面这段代码，它的运行结果是1-->
+	</body>
+	<script type="text/javascript">
+		function test() {　　　　
+			this.x = 1;　　　　
+			alert(this.x);　　
+		}　　
+		test(); // 1
+
+		//		为了证明this就是全局对象，我对代码做一些改变
+		var x = 1;　　
+		function test() {　　　　
+			alert(this.x);　　
+		}　　
+		test(); // 1
+
+		//		运行结果还是1。再变一下：
+
+		var x = 1;　　
+		function test() {　　　　
+			this.x = 0;　　
+		}　　
+		test();　　
+		alert(x); //0
+	</script>
+
+</html>

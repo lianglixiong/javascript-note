@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		var a = {
+			name:1
+		};
+		var b = a;
+
+		console.log(a); //{name:1}
+		console.log(b);//{name:1}
+
+		b.name = 2;
+		console.log(a);//{name:2}
+		console.log(b);//{name:2}
+
+		var b = {
+			name:3
+		};
+		console.log(a)//{name:2}
+		console.log(b);//{name:3}
+	</script>
+	<!--a是一个对象，b是对引用，即a和b指向同一块内存，所以前两个输出一样。
+	当对b作修改时，即a和b指向同一块内存地址的内容发生了改变，所以a也会体现出来，
+	所以第三四个输出一样。当b被覆盖时，b指向了一块新的内存，a还是指向原来的内存，
+	所以最后两个输出不一样-->
+	
+	<!--明白了上述例子后，我们只需知道三点就知道出口和module.exports的区别了：
+
+	module.exports初始值为一个空对象{}
+	exports是指向的module.exports的引用
+	require（）返回的是module.exports而不是exports-->
+	
+	<!--exports就是module.exports的引用-->
+
+
+</html>

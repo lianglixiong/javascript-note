@@ -1,0 +1,33 @@
+//
+// Close icons
+// --------------------------------------------------
+
+
+.sui-close {
+  float: right;
+  font-size: 24px;
+  line-height: @baseLineHeight;
+  color: #666;
+  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  outline: none;
+  &:hover,
+  &:focus {
+    color: #ff5050;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &:focus {
+    color: #dd5050;
+  }
+}
+
+// Additional properties for button version
+// iOS requires the button element instead of an anchor tag.
+// If you want the anchor version, it requires `href="#"`.
+button.sui-close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}

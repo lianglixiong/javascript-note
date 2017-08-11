@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<!--在javascript中函数也是一种数据，能够像操作一个对象对它进行操作。
+	并且javascript不进行数据类型检查，数组可以存放任何东西，
+	在下面代码中我们不但在数组中存放了函数，并且也可以在存放一个执行函数的返回值，
+	所以数组前两个数据存放都是函数执行返回值-->
+
+	<script type="text/javascript">
+		var funcA = function() {
+            console.log("funcA");
+            return "hello funA";
+        }
+        var funcB = function() {
+            console.log("funcB");
+            return "hello funB";
+        }
+        var funcC = function() {
+            console.log("funcC");
+            return "hello funC";
+        }
+        var arr = [funcA(), funcB(), funcC];
+        console.log(arr);
+        arr[2]();
+	</script>
+</html>

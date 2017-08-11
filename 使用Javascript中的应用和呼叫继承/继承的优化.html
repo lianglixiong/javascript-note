@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<!--如果构造函数这个绑定太多属性（比如一些共同方法），在实例化后会造成浪费，
+	为此我们一般会使用原型链来优化，但是使用原型链之后我们的应用和呼叫的继承方法就会失效
+	为此我们一般使用混合的写法，使用原型链和（申请或者电话）进行方法继承
+	具体两句话
+	让子的原型链指向父的实例（父实例化的对象）
+	cat.prototype = new animal();
+	让父的属性创建在子的这个上
+	animal.call(this, type)
+	本世纪的牛顿代码如下，那么就会让父原型链的属性和该上的属性都得到继承-->
+	<script type="text/javascript">
+		function animal(type) {
+            this.type = type
+            this.behavior = function() {
+                console.log(this.type + " is running")
+            }
+        }
+        animal.prototype.action = function() {
+            console.log("running")
+        }
+
+        function cat(name, type) {
+            this.name = name
+            animal.call(this, type)
+        }
+
+        cat.prototype = new animal();
+        console.log(new cat('wsscat', 'cute'));
+        (new cat('wsscat')).action() //running
+	</script>
+	<body>
+	</body>
+</html>

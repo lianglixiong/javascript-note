@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<!--既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！-->
+
+	<script type="text/javascript">
+		function f1() {　　　　
+			var n = 999;　　　　
+			function f2() {　　　　　　
+				alert(n);　　　　
+			}　　　　
+			return f2;　　
+		}　　
+		var result = f1();　　
+		result(); // 999
+	</script>
+	<!--我的理解是，闭包就是能够读取其他函数内部变量的函数。-->
+
+</html>

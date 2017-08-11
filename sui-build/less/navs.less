@@ -1,0 +1,700 @@
+//
+// Navs
+// --------------------------------------------------
+
+
+// BASE CLASS
+// ----------
+
+.sui-nav {
+  margin-left: 0;
+  margin-bottom: @baseMargin;
+  list-style: none;
+
+  > li > a {
+    display: block;
+    cursor: pointer;
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: @grayLighter;
+      outline: 0;
+    }
+  }
+
+  // Prevent IE8 from misplacing imgs
+  // See https://github.com/h5bp/html5-boilerplate/issues/984#issuecomment-3985989
+  img {
+    max-width: none;
+  }
+
+  // Redeclare pull classes because of specifity
+  > .pull-right {
+    float: right;
+  }
+
+  // Nav headers (for dropdowns and lists)
+  .nav-header {
+    display: block;
+    padding: 3px 15px;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: @baseLineHeight;
+    color: @grayLight;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    text-transform: uppercase;
+  }
+  // Space them out when they follow another list item (link)
+  li + .nav-header {
+    margin-top: 9px;
+  }
+
+
+  // NAV LIST
+  // --------
+
+  &.nav-list {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 0;
+    > li > a,
+    .nav-header {
+      margin-left:  -15px;
+      margin-right: -15px;
+      text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    }
+    > li > a {
+      padding: 3px 15px;
+    }
+    > .active > a,
+    > .active > a:hover,
+    > .active > a:focus {
+      color: @white;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+      background-color: @linkColor;
+    }
+    [class^="icon-"],
+    [class*=" icon-"] {
+      margin-right: 2px;
+    }
+  // Dividers (basically an hr) within the dropdown
+    .divider {
+      .nav-divider();
+    }
+    &.nav-large .nav-header {
+      padding: @navPaddingLarge;
+    }
+    &.nav-xlarge .nav-header {
+      padding: @navPaddingXLarge;
+      font-size: @fontSizeLarge * 1.15;
+    }
+  }
+
+
+
+  // TABS AND PILLS
+  // -------------
+
+  // Common styles
+  &.nav-tabs,
+  &.nav-pills {
+    .clearfix();
+
+    > li {
+      float: left;
+
+      a {
+        padding-right: 12px;
+        padding-left: 12px;
+        line-height: 14px; // keeps the overall height an even number
+      }
+    }
+  }
+
+  // 整个nav的统一尺寸在这里定义，各个不同形态可以重载这些尺寸
+  > li > a {
+    padding: @navPadding;
+  }
+  &.nav-large > li > a {
+    padding: @navPaddingLarge;
+  }
+  &.nav-xlarge > li > a {
+    padding: @navPaddingXLarge;
+    font-size: @fontSizeLarge * 1.15;
+  }
+
+  // TABS
+  // ----
+
+  // Give the tabs something to sit on
+  &.nav-tabs {
+    border-bottom: 1px solid @navTabsBorderColor;
+    padding-left: 5px;
+    // Make the list-items overlay the bottom border
+    > li {
+      margin-bottom: -1px;
+      & > a {
+        color: @navTabsColor;
+        line-height: @baseLineHeight;
+        .border-radius(@borderRadiusSmall @borderRadiusSmall 0 0);
+        border: 1px solid transparent;
+      }
+      & > a:hover {
+        background-color: transparent;  // reset hover
+      }
+      + li {
+        margin-left: @baseMargin / 2;
+      }
+      + li > a {
+        margin-left: -1px;
+      }
+    }
+    
+  // Active state, and it's :hover/:focus to override normal :hover/:focus
+    > .active {
+      border-bottom: 0;
+      & + li > a {
+      }
+      & > a {
+        font-weight: bold;
+        background-color: @bodyBackground;
+        border: 1px solid @navTabsBorderColor;
+        border-bottom-color: transparent;
+        cursor: default;
+        &:hover {
+          background-color: @bodyBackground;
+        }
+      }
+    }
+
+    > .active > a,
+    > li > a:hover {
+      color: @navTabsHilightColor;
+    }
+
+    &.tab-vertical {
+      border-bottom: none;
+      border-right: 1px solid @navTabsBorderColor;
+      width: 100px;
+      display: inline-block;
+      padding-left: 0;
+      li {
+        float: none;
+        margin-left: 0;
+        margin-bottom: 0;
+        margin-right: -1px;
+        &.active {
+          a {
+            border: 1px solid @navTabsBorderColor;
+            border-right: 1px solid transparent;
+          }
+        }
+        a {
+          .border-radius(@borderRadiusSmall 0 0 @borderRadiusSmall);
+        }
+      }
+    }
+
+    &.nav-primary {
+      border-bottom: 2px solid @navTabsHilightColor;
+      > li {
+        margin-bottom: -2px;
+      }
+
+      >.active > a {
+        border-color: @navTabsHilightColor;
+        color: @white;
+        background: @navTabsHilightColor;
+        .border-radius(@borderRadiusSmall @borderRadiusSmall 0 0);
+      }
+
+      &.tab-vertical {
+        border-right: 2px solid @navTabsHilightColor;
+        border-bottom: 0;
+        >.active > a {
+          border: 0;
+          .border-radius(@borderRadiusSmall 0 0 @borderRadiusSmall);
+        }
+        li {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &.nav-pills {
+      .nav-primary;
+      border-bottom: 0;
+      padding-left: 0;
+      > li {
+        & > a,
+        &.active > a {
+          border-radius: 3px;
+          border: 0;
+        }
+        > a:hover {
+          background-color: #f1f1f1;
+          color: @linkColor;
+        }
+        &.active > a:hover {
+          background: @navTabsHilightColor;
+          color: #fff;
+        }
+      }
+      &.tab-vertical {
+        border: 0;
+        > .active > a {
+          border-radius: @borderRadiusSmall;
+        }
+        li + li {
+          margin-top: @baseMargin / 2;
+        }
+      }
+    }
+    &.tab-navbar {
+      display: inline-block;
+      border: 1px solid @navTabsBorderColor;
+      border-radius: @borderRadiusSmall;
+      padding-left: 0;
+      > li {
+        margin-bottom: 0;
+        margin-left: 0;
+        > a {
+          margin-left: 0;
+          border-radius: 0;
+          border: none;
+        }
+        &.active > a {
+          background: @navTabsHilightColor;
+          color: #fff;
+          border-top: 1px solid @navTabsHilightColor;
+          margin-top: -1px;
+          border-bottom: 1px solid @navTabsHilightColor;
+          margin-bottom: -1px;
+        }
+        
+        &:first-child > a {
+          border-radius: @borderRadiusSmall 0 0 @borderRadiusSmall;
+        }
+        &:last-child > a {
+          border-radius: 0 @borderRadiusSmall @borderRadiusSmall 0;
+        }
+      }
+      &.tab-light {
+        li.active > a {
+          margin-top: 0;
+          margin-bottom: 0;
+          border-top: 0;
+          border-bottom: 0;
+        }
+        li.active > a,
+        li > a:hover {
+          background-color: #f3f3f3;
+          color: #666;
+        }
+        li + li {
+          > a {
+            border-left: 1px solid @navTabsBorderColor;
+          }
+        }
+
+        &.tab-vertical {
+          li {
+            margin: 0;
+            a, &:first-child > a {
+              border: 0;
+              margin: 0;
+            }
+
+            // last-child ie8不支持，和上面的写在一起会导致上面的也失效，所以单独写
+            &:last-child > a {
+              border: 0;
+              margin: 0;
+            }
+            &.active > a {
+              border-bottom: 0;
+            }
+            + li > a {
+              border-top: 1px solid @navTabsBorderColor!important;
+            }
+          }
+        }
+      }
+      &.tab-vertical {
+        > li {
+          a {
+            border: 0;
+          }
+
+          &.active a {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+          &:first-child > a {
+            border-radius: @borderRadiusSmall @borderRadiusSmall 0 0;
+            margin-top: -1px;
+          }
+          &:last-child > a {
+            border-radius: 0 0 @borderRadiusSmall @borderRadiusSmall;
+            margin-bottom: -1px;
+          }
+          margin-left: -1px;
+          margin-right: -1px;
+        }
+      }
+      
+    }
+
+    &.tab-wraped {
+      padding-left: 0;
+      margin-bottom: 0;
+      border: 1px solid @navTabsBorderColor;
+      border-top: 0;
+      > li {
+        margin-left: 0;
+        width: 25%;
+        > a {
+          color: @navTabsColor;
+          padding: 20px;
+          border-radius: 0;
+          background: #fcfcfc;
+          margin-left: 0;
+          border: 0;
+          border-top: 1px solid @navTabsBorderColor;
+          border-bottom: 1px solid @navTabsBorderColor;
+          &:hover {
+            background: @white;
+          }
+        }
+        + li {
+          > a {
+            border-left: 1px solid @navTabsBorderColor;
+          }
+        }
+        &.active > a {
+          background: @white;
+          font-weight: normal;
+          border-bottom: 1px solid @white;
+          border-top: 3px solid @linkColor;
+          padding-top: 18px; //和其他标签对齐
+        }
+
+        h3 {
+          text-align: center;
+          color: @textColor;
+        }
+
+        ul {
+          margin: auto;
+        }
+        li {
+          margin: 5px 0;
+        }
+        strong {
+          font-size: 120%;
+          vertical-align: middle;
+        }
+        label {
+          color: @grayLight;
+          display: inline-block;
+          width: 70px;
+          text-align: right;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+      &.column3 {
+        > li {
+          width: 33.333%;
+        }
+      }
+      &.column5 {
+        > li {
+          width: 20%;
+        }
+      }
+    }
+  }
+
+
+  // PILLS
+  // -----
+
+
+  // STACKED NAV
+  // -----------
+
+  // Stacked tabs and pills
+  &.nav-stacked > li {
+    float: none;
+  }
+  &.nav-stacked > li > a {
+    margin-right: 0; // no need for the gap between nav items
+  }
+
+  // Tabs
+  &.nav-tabs.nav-stacked {
+    border-bottom: 0;
+    padding-left: 0;
+  }
+  &.nav-tabs.nav-stacked > li {
+    border: 1px solid #ddd;
+    overflow: hidden;
+    .border-radius(0);
+    background: @navTabsBackgroundColor;
+    margin-left: 0;
+
+    > a {
+      border: 0;
+      margin-left: 0;
+      background: none;
+    }
+
+    &:hover {
+      background: @white;
+    }
+  }
+  &.nav-tabs.nav-stacked > li.active {
+    border-right: 2px solid @navTabsBorderHighlightColor;
+  }
+  &.nav-tabs.nav-stacked > li > a:hover,
+  &.nav-tabs.nav-stacked > li > a:focus {
+    border-color: #ddd;
+    z-index: 2;
+  }
+
+  // 嵌套结构
+  &.nav-tabs.nav-stacked .nav-tabs.nav-stacked {
+    display: none;
+    margin-bottom: 0;
+    > li {
+      border: 0;
+      .border-radius(0);
+      background: #fff;
+      &:hover {
+        background: @white;
+      }
+      a {
+        margin-left: 30px;
+        color: @grayLight;
+        position: static;
+        border: 1px solid #ddd;
+        border-left: 0;
+        border-right: 0;
+      }
+      &.active a,
+      &:hover a
+      {
+        color: @navTabsHilightColor;
+      }
+      &:first-child {
+        border-top: 1px solid #ddd;
+        > a {
+          border-top: 0;
+        }
+      }
+    }
+  }
+  &.nav-tabs.nav-stacked {
+    > li.active .nav-tabs.nav-stacked {
+      display: block;
+    }
+    &.nav-large .nav-tabs.nav-stacked > li > a {
+      padding: @navPaddingLarge;
+    }
+    &.nav-xlarge .nav-tabs.nav-stacked > li > a {
+      padding: @navPaddingXLarge;
+    }
+  }
+
+  // Pills
+  &.nav-pills.nav-stacked > li > a {
+    margin-bottom: 3px;
+  }
+  &.nav-pills.nav-stacked > li:last-child > a {
+    margin-bottom: 1px; // decrease margin to match sizing of stacked tabs
+  }
+
+
+
+  // DROPDOWNS
+  // ---------
+
+  &.nav-tabs .dropdown-menu {
+    .border-radius(0 0 6px 6px); // remove the top rounded corners here since there is a hard edge above the menu
+  }
+  &.nav-pills .dropdown-menu {
+    .border-radius(6px); // make rounded corners match the pills
+  }
+}
+
+// Default dropdown links
+// -------------------------
+
+/* move down carets for tabs */
+.nav-tabs .dropdown-toggle .caret {
+  margin-top: 8px;
+}
+
+// Active:hover/:focus dropdown links
+// -------------------------
+.sui-nav > .sui-dropdown.active > a:hover,
+.sui-nav > .sui-dropdown.active > a:focus {
+  cursor: pointer;
+}
+
+// Open dropdowns
+// -------------------------
+.nav-tabs .open .dropdown-toggle,
+.nav-pills .open .dropdown-toggle,
+.sui-nav > li.sui-dropdown.open.active > a:hover,
+.sui-nav > li.sui-dropdown.open.active > a:focus {
+  color: @white;
+  background-color: @grayLight;
+  border-color: @grayLight;
+}
+
+
+// Dropdowns in stacked tabs
+.tabs-stacked .open > a:hover,
+.tabs-stacked .open > a:focus {
+  border-color: @grayLight;
+}
+
+
+
+// TABBABLE
+// --------
+
+
+// COMMON STYLES
+// -------------
+
+// Clear any floats
+.tabbable {
+  .clearfix();
+}
+.tab-content {
+  // this will cause dropdown scroll bug
+  //overflow: auto; // prevent content from running below tabs
+}
+
+// Remove border on bottom, left, right
+.tabs-below > .nav-tabs,
+.tabs-right > .nav-tabs,
+.tabs-left > .nav-tabs {
+  border-bottom: 0;
+}
+
+// Show/hide tabbable areas
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+  display: none;
+}
+.tab-content > .active,
+.pill-content > .active {
+  display: block;
+}
+
+.tab-content.tab-wraped {
+  border: 1px solid @navTabsBorderColor;
+  border-top: 0;
+  padding: @baseMargin;
+}
+
+// BOTTOM
+// ------
+
+.tabs-below > .nav-tabs {
+  border-top: 1px solid #ddd;
+}
+.tabs-below > .nav-tabs > li {
+  margin-top: -1px;
+  margin-bottom: 0;
+}
+.tabs-below > .nav-tabs > li > a {
+  .border-radius(0 0 4px 4px);
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
+    border-top-color: #ddd;
+  }
+}
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus {
+  border-color: transparent #ddd #ddd #ddd;
+}
+
+// LEFT & RIGHT
+// ------------
+
+// Common styles
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+// Tabs on the left
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  .border-radius(4px 0 0 4px);
+}
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: @grayLighter #ddd @grayLighter @grayLighter;
+}
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: @white;
+}
+
+// Tabs on the right
+.tabs-right > .nav-tabs {
+  float: right;
+  margin-left: 19px;
+  border-left: 1px solid #ddd;
+}
+.tabs-right > .nav-tabs > li > a {
+  margin-left: -1px;
+  .border-radius(0 4px 4px 0);
+}
+.tabs-right > .nav-tabs > li > a:hover,
+.tabs-right > .nav-tabs > li > a:focus {
+  border-color: @grayLighter @grayLighter @grayLighter #ddd;
+}
+.tabs-right > .nav-tabs .active > a,
+.tabs-right > .nav-tabs .active > a:hover,
+.tabs-right > .nav-tabs .active > a:focus {
+  border-color: #ddd #ddd #ddd transparent;
+  *border-left-color: @white;
+}
+
+
+
+// DISABLED STATES
+// ---------------
+
+// Gray out text
+.sui-nav > .disabled > a {
+  color: @grayLight;
+}
+// Nuke hover/focus effects
+.sui-nav > .disabled > a:hover,
+.sui-nav > .disabled > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: default;
+}
+

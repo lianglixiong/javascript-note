@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<button id="getCodes" onclick="getCodes()">获取验证码</button>
+		<button id="reciprocal" style="display: none;">倒计时</button>
+	</body>
+	<script>
+		function getCodes() {
+			document.getElementById('reciprocal').style.display = 'block';
+			document.getElementById('getCodes').style.display = 'none';
+			var time = 60;
+			var reciprocal = window.setInterval(function() {
+				console.log(time);
+				if(time > 0) {
+					document.getElementById('reciprocal').innerHTML = time;
+					time--;
+				} else {
+					document.getElementById('getCodes').style.display = 'block';
+					document.getElementById('reciprocal').style.display = 'none';
+					window.clearInterval(reciprocal);
+				}
+			}, 1000);
+			document.getElementById('reciprocal').innerHTML = '获取成功';
+			alert('获取成功');
+		}
+	</script>
+
+</html>

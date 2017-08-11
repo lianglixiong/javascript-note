@@ -1,0 +1,350 @@
+<!--touchstart
+在触摸开始时触发事件
+touchend
+在触摸结束时触发事件
+touchmove
+在触摸期间时触发事件-->
+
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js">
+
+	<head>
+		<meta http-equiv="Content-Type">
+		<meta content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	</head>
+
+	<body>
+		<div class="page page-1-1 page-current">
+			<div class="wrap">
+				1
+			</div>
+		</div>
+		<div class="page page-2-1 hide">
+			<div class="wrap">
+				2
+			</div>
+		</div>
+		<div class="page page-2-2 hide">
+			<div class="wrap">
+				3
+			</div>
+		</div>
+		<div class="page page-3-1 hide">
+			<div class="wrap">
+				4
+			</div>
+		</div>
+	</body>
+	<script>
+		(function() {
+
+			var now = {
+					row: 1,
+					col: 1
+				},
+				last = {
+					row: 0,
+					col: 0
+				};
+			const towards = {
+				up: 1,
+				right: 2,
+				down: 3,
+				left: 4
+			};
+			var isAnimating = false;
+			var touch = {};
+
+			function direction(startX, changeX, startY, changeY) {
+				return Math.abs(startX - changeX) >=
+					Math.abs(startY - changeY) ? (startX - changeX > 0 ? 'Left' : 'Right') : (startY - changeY > 0 ? 'Up' : 'Down')
+			}
+
+			document.getElementsByTagName('body')[0].addEventListener('touchstart', function(e) {
+				touch.startY = e.targetTouches[0].pageY;
+				touch.startX = e.targetTouches[0].pageX;
+				//console.log("点击时的X坐标" + nStartX + "和Y坐标" + nStartY);
+			});
+
+			document.getElementsByTagName('body')[0].addEventListener('touchmove', function(e) {
+				touch.whenChangY = e.changedTouches[0].pageY;
+				touch.whenChangX = e.changedTouches[0].pageX;
+				//console.log("滑动时的X坐标" + nWhenChangX + "和Y坐标" + nWhenChangY);
+			})
+
+			document.getElementsByTagName('body')[0].addEventListener('touchend', function(e) {
+				touch.changY = e.changedTouches[0].pageY;
+				touch.changX = e.changedTouches[0].pageX;
+				//console.log("滑动后的X坐标" + nChangX + "和Y坐标" + nChangY);
+				var swDirection = direction(touch.startX, touch.changX, touch.startY, touch.changY);
+				console.log(swDirection);
+				//以回调的方法来写这个动作
+				if(swDirection == 'Up') {
+					swipeUp(function() {
+						if(isAnimating) return;
+						last.row = now.row;
+						last.col = now.col;
+						if(now.col == 2) {
+							return;
+						} else if(last.row != 6) {
+							now.row = last.row + 1;
+							now.col = 1;
+							pageMove(towards.up);
+						}
+					})
+				}
+
+				if(swDirection == 'Down') {
+					if(isAnimating) return;
+					last.row = now.row;
+					last.col = now.col;
+					if(now.col == 2) {
+						return;
+					} else if(last.row != 1) {
+						now.row = last.row - 1;
+						now.col = 1;
+						pageMove(towards.down);
+					}
+				}
+				if(swDirection == 'Left') {
+					if(isAnimating) return;
+					last.row = now.row;
+					last.col = now.col;
+					if(last.row > 1 && last.row < 5 && last.col == 1) {
+						now.row = last.row;
+						now.col = 2;
+						pageMove(towards.left);
+					}
+				}
+
+				if(swDirection == 'Right') {
+					if(isAnimating) return;
+					last.row = now.row;
+					last.col = now.col;
+					if(last.row > 1 && last.row < 5 && last.col == 2) {
+						now.row = last.row;
+						now.col = 1;
+						pageMove(towards.right);
+					}
+
+				}
+			})
+
+			function swipeUp(callback) {
+				callback()
+			}
+
+			function hasClass(obj, cls) {
+				return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+			}
+
+			console.log(window.document)
+
+			function addClass(obj, cls) {
+				if(!hasClass(obj, cls)) obj.className += " " + cls;
+			}
+
+			function removeClass(obj, cls) {
+				if(hasClass(obj, cls)) {
+					var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+					obj.className = obj.className.replace(reg, ' ');
+				}
+			}
+
+			function toggleClass(obj, cls) {
+				if(hasClass(obj, cls)) {
+					removeClass(obj, cls);
+				} else {
+					addClass(obj, cls);
+				}
+			}
+
+			function pageMove(tw) {
+				console.log(now);
+				console.log(now);
+				var lastPage = ".page-" + last.row + "-" + last.col,
+					nowPage = ".page-" + now.row + "-" + now.col;
+
+				switch(tw) {
+					case towards.up:
+						outClass = 'pt-page-moveToTop';
+						inClass = 'pt-page-moveFromBottom';
+						break;
+					case towards.right:
+						outClass = 'pt-page-moveToRight';
+						inClass = 'pt-page-moveFromLeft';
+						break;
+					case towards.down:
+						outClass = 'pt-page-moveToBottom';
+						inClass = 'pt-page-moveFromTop';
+						break;
+					case towards.left:
+						outClass = 'pt-page-moveToLeft';
+						inClass = 'pt-page-moveFromRight';
+						break;
+				}
+				isAnimating = true;
+				var $nowPage = document.querySelector(nowPage);
+				var $lastPage = document.querySelector(lastPage);
+				console.log($nowPage);
+				removeClass($nowPage, "hide");
+				addClass($lastPage, outClass)
+				addClass($nowPage, inClass);
+
+				setTimeout(function() {
+					removeClass($lastPage, 'page-current');
+					removeClass($lastPage, outClass);
+					addClass($lastPage, "hide");
+
+					addClass($nowPage, 'page-current');
+					removeClass($nowPage, inClass);
+
+					isAnimating = false;
+				}, 600);
+			}
+		})()
+	</script>
+	<style>
+		body {
+			width: 100%;
+			overflow: hidden;
+		}
+		
+		.page {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			font-size: 100px;
+			text-align: center;
+		}
+		
+		.page .wrap {
+			height: 500px;
+		}
+		
+		.page-1-1 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-2-1 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-2-2 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-3-1 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-3-2 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-4-1 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-4-2 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-5-1 {
+			background-image: url(img/background/1.png);
+			background-size: cover;
+		}
+		
+		.page-current {
+			z-index: 1;
+		}
+		
+		.hide {
+			display: none;
+		}
+		
+		.pt-page-moveToTop {
+			-webkit-animation: moveToTop .6s ease both;
+			animation: moveToTop .6s ease both;
+		}
+		
+		@-webkit-keyframes moveToTop {
+			from {}
+			to {
+				-webkit-transform: translateY(-100%);
+			}
+		}
+		
+		.pt-page-moveFromBottom {
+			-webkit-animation: moveFromBottom .6s ease both;
+			animation: moveFromBottom .6s ease both;
+		}
+		
+		@-webkit-keyframes moveFromBottom {
+			from {
+				-webkit-transform: translateY(100%);
+			}
+		}
+		
+		.pt-page-moveToBottom {
+			-webkit-animation: moveToBottom .6s ease both;
+			animation: moveToBottom .6s ease both;
+		}
+		
+		@-webkit-keyframes moveToBottom {
+			from {}
+			to {
+				-webkit-transform: translateY(100%);
+			}
+		}
+		
+		.pt-page-moveFromTop {
+			-webkit-animation: moveFromTop .6s ease both;
+			animation: moveFromTop .6s ease both;
+		}
+		
+		@-webkit-keyframes moveFromTop {
+			from {
+				-webkit-transform: translateY(-100%);
+			}
+		}
+		
+		.pt-page-moveToRight {
+			-webkit-animation: moveToRight .6s ease both;
+			animation: moveToRight .6s ease both;
+		}
+		
+		@-webkit-keyframes moveToRight {
+			from {}
+			to {
+				-webkit-transform: translateX(100%);
+			}
+		}
+		
+		.pt-page-moveToLeft {
+			-webkit-animation: moveToLeft .6s ease both;
+			animation: moveToLeft .6s ease both;
+		}
+		
+		@-webkit-keyframes moveToLeft {
+			from {}
+			to {
+				-webkit-transform: translateX(-100%);
+			}
+		}
+	</style>
+
+</html>

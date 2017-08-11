@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//			javascript中每个函数解析时， 都会创建两个特殊的变量： 
+			//			这和参数， 这两个变量都能在函数体内访问， 所以每个函数都有属于自己的这个对象和参数
+			//
+			//			当然这个该对象是在执行时基于函数的执行环境绑定的，
+			//
+			//			即在全局对象中， 这指向的是窗口对象;
+			//			在自定义函数中， 这个对象指向的是调用这个函数的对象;
+			//			下面这个函数执行的时候， 第一个这样指向的就是窗口对象， 
+			//			因为它在窗口环境下执行的， 第二个这种对象指向的是objThis对象， 
+			//			因为它在objThis对象下执行的
+			var wsscat = function(name) {
+				var self = this;
+				this.name = name;
+				console.log(this);
+				console.log(self);
+			}
+			wsscat('wsscat');
+			window.wsscat('wsscat'); //因为它在window对象下执行的
+			var objThis = {
+				x: 'autumns',
+				wsscat: wsscat
+			}
+			objThis.wsscat(); //因为它在objThis对象下执行的
+
+			//			当我们把这个构造函数变成对象的时候，这个本就是指向自己的wsscat对象
+			var wsscat = function(name) {
+				var self = this;
+				this.name = name;
+				console.log(this);
+				console.log(self);
+			}
+			////通过构造函数new一个新对象时，this就指这个新对象
+			var obj = new wsscat('wsscat'); //log wsscat{name:'wsscat'}对象
+
+			//			这个给出一个私有的自我参数，这个可以令对象这个对私有方法func3可见，
+			//			所以当我们在构造函数中出现闭包（私有函数/嵌套函数下面例子中的函数func3（））都要注意，
+			//			此时里面的这个是属于窗口对象的
+			var wsscat = function(name) {
+				var self = this;
+				var x = 'autumns';
+				this.name = name;
+				console.log(this);
+				console.log(self);
+				this.func = function() {
+					console.log("wsscat's func");
+				};
+				this.func2 = function() {
+					func3(); //不能用self.func3()和this.func3()
+				}
+				//闭包里面，既嵌套函数里面如果想使用wsscat对象的方法或者变量要用self
+				function func3() {
+					console.log(this) //指向window对象
+					//this.func();//报错this.func is not a function
+					self.func(); //不能用this.func(),也不能用func()
+					console.log("wsscat's func3");
+				}
+			}
+
+			var obj = new wsscat('wsscat');
+			obj.func2()
+		</script>
+	</body>
+
+</html>

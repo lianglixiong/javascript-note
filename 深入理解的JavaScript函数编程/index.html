@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//			初阶部分
+			//			字符串可以保存为变量， 函数说他也可以
+			var autumn = 'autumnswind';
+			var autumn_fn = function() {
+				return 'autumnswind';
+			};
+
+			//			字符串可以保存对象字段，函数说他也可以
+			var autumnswind = {
+				autumn: 'autumnswind',
+				autumn_fn: function() {
+					return 'autumnswind'
+				}
+			};
+
+			//			字符串可以用时再创建，函数说他也可以
+			'Autumns' + (function() {
+				return 'Wind'
+			})();
+
+			//			字符串可以作为参数传给函数，函数说他也可以
+			var autumn;
+
+			function autumn_fn() {};
+
+			function hellloWorld(autumn, autumn_fn) {
+				return;
+			}
+
+			//			字符串可以作为函数返回值，函数说他也可以
+			return 'autumnswind';
+			return function() {
+				return 'autumnswind';
+			};
+
+			//			高阶部分：
+			//			有了上面的例子， 那么我们就可以把函数这个小孩子带到好多好玩的地方， 往下慢慢看~
+			//				首先看第一个例子
+
+			var obj1 = {
+					value: '秋风'
+				},
+				obj2 = {
+					value: 'autumnswind'
+				},
+				obj3 = {
+					value: '莎娜'
+				};
+			var values = [];
+
+			function add(obj) {
+				values.push(obj.value);
+			}
+			add(obj1);
+			add(obj2);
+			console.log(values); // 秋风,autumnswind
+
+			//			这种写法， 大家都知道了， 变量会污染全局环境， 并且一旦有一个地方忘记修改了就会变得很不稳定，
+			//			不像函数体一样， 只负责内部的输入输出， 这里如果融入上下文的其他函数和变量就会变得非常混乱
+			//
+			//			根据这样修改成第二个例子：
+
+			var obj1 = {
+					value: '秋风'
+				},
+				obj2 = {
+					value: 'autumnswind'
+				},
+				obj3 = {
+					value: '莎娜'
+				};
+
+			function add(obj) {
+				var values = [];
+				values.push(obj.value);
+				return values;
+			}
+			跟下面一样
+			/*function add(obj) {
+			    var values = [];
+			    var accumulate = function() {
+			        values.push(obj.value);
+			    };
+			    accumulate();
+			    return values;
+			}*/
+			add(obj1);
+			add(obj2);
+			console.log(add(obj1)); // 秋风
+			console.log(add(obj2)); // autumnswind
+
+			//			这样我们把values数组声明放进去函数内部， 这样就不会被其他外部变量骚扰了，
+			//			但是问题又来了， 只有最后传入对象值才可以返回， 那不是我们的初衷
+
+			//			最后看消除所有尴尬的第三个例子：
+			var
+				obj1 = {
+					value: '秋风'
+				},
+				obj2 = {
+					value: 'autumnswind'
+				},
+				obj3 = {
+					value: '莎娜'
+				};
+
+			var Add = function(obj) {
+				var
+					values = [];
+				var
+					_calc = function(obj) {
+						if(obj) {
+							values.push(obj.value);
+							return values;
+						} else {
+							return values;
+						}
+					};
+				return _calc;
+				//可以这样把它看成匿名函数省去一个没必要的变量
+				/*return function(obj) {
+				    if (obj) {
+				        values.push(obj.value);
+				        return values;
+				    } else {
+				        return values;
+				    }
+				}*/
+			};
+
+			var calc = Add();
+			calc(obj1); //相当于ValueAccumulator()(obj1)
+			calc(obj2); //走if分支
+			console.log(calc()); //走else的分支
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<!--其实申请和调用这两个方法基本上是差不多的，区别在于调用的第二个参数可以是任意类型，
+	而申请的第二个参数必须是数组，也可以是自变量（即传给构造函数的参数）-->
+
+	<!--例如我们把上面的代码稍微改一下，如果此时我在新的构造函数猫时候的参数传入new cat('wsscat','cute')我们的猫能接收参数，
+	但是如果此时继承是animal.call(this)，没有给呼叫传第二个参数的时候，
+	生成的对象中类型的值就会是未定义的，所以为了让这个值能够让动物接收，
+	我们可以在动物中传入第二个参数animal.call（此，类型）-->
+	<script type="text/javascript">
+		function animal(type) {
+            this.type = type
+            this.behavior = function(){
+                console.log(this.type+" is running")
+            }
+       }
+
+        function cat(name, type) {
+            this.name = name
+            //这里call的意思就是把animal的方法应用到cat这个对象身上
+            //所以cat就继承了animal的方法
+            //animal.call(this);//type undefined
+            //animal.call(this,type);//type cute
+            //animal.call(this,arguments[1]);//type cute
+            //animal.call(this,arguments);//type ['wsscat','cute']
+            animal.apply(this,arguments)//type: wsscat
+        }
+
+        console.log(new cat('wsscat','cute'))
+//      这里用适用就很方便，因为参数是数组，可以全部传给动物，而调用就要一个个地传过去
+	</script>
+</html>

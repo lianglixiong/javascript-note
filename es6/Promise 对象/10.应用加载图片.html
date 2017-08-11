@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<!--我们可以将图片的加载写成一个Promise，一旦加载完成，Promise的状态就发生变化。-->
+	<script type="text/javascript">
+		const preloadImage = function(path) {
+			return new Promise(function(resolve, reject) {
+				var image = new Image();
+				image.onload = resolve;
+				image.onerror = reject;
+				image.src = path;
+			});
+		};
+	</script>
+
+</html>

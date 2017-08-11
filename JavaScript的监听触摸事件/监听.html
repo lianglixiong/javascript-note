@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Wsscat滑动事件Demo</title>
+	</head>
+
+	<body>
+		<article>上下左右滑动</article>
+	</body>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		article {
+			background-color: #000000;
+			width: 100%;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			color: #FFFFFF;
+		}
+	</style>
+	<script>
+		(function() {
+			var touch = {};
+
+			function direction(startX, changeX, startY, changeY) {
+				return Math.abs(startX - changeX) >=
+					Math.abs(startY - changeY) ? (startX - changeX > 0 ? 'Left' : 'Right') : (startY - changeY > 0 ? 'Up' : 'Down')
+			}
+
+			document.getElementsByTagName('body')[0].addEventListener('touchstart', function(e) {
+				touch.startY = e.targetTouches[0].pageY;
+				touch.startX = e.targetTouches[0].pageX;
+				//console.log("点击时的X坐标" + nStartX + "和Y坐标" + nStartY);
+			});
+
+			document.getElementsByTagName('body')[0].addEventListener('touchmove', function(e) {
+				touch.whenChangY = e.changedTouches[0].pageY;
+				touch.whenChangX = e.changedTouches[0].pageX;
+				//console.log("滑动时的X坐标" + nWhenChangX + "和Y坐标" + nWhenChangY);
+			})
+
+			document.getElementsByTagName('body')[0].addEventListener('touchend', function(e) {
+				touch.changY = e.changedTouches[0].pageY;
+				touch.changX = e.changedTouches[0].pageX;
+				//console.log("滑动后的X坐标" + nChangX + "和Y坐标" + nChangY);
+				var swDirection = direction(touch.startX, touch.changX, touch.startY, touch.changY);
+				console.log(swDirection);
+			})
+		})()
+	</script>
+
+</html>

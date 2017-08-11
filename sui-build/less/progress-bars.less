@@ -1,0 +1,153 @@
+//
+// Progress bars
+// --------------------------------------------------
+
+
+// ANIMATIONS
+// ----------
+
+// Webkit
+@-webkit-keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+// Firefox
+@-moz-keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+// IE9
+@-ms-keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+// Opera
+@-o-keyframes progress-bar-stripes {
+  from  { background-position: 0 0; }
+  to    { background-position: 40px 0; }
+}
+
+// Spec
+@keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+
+
+// THE BARS
+// --------
+
+// Outer container
+.sui-progress {
+  overflow: hidden;
+  height: @baseLineHeight + 4px;
+  margin-bottom: @baseMargin;
+  background-color: #eee;
+  .border-radius(@baseBorderRadius);
+  border: none;
+  position: relative;
+
+  // Bar of progress
+  .bar {
+    width: 0%;
+    height: 100%;
+    padding: @basePadding;  //和button高度保持一致
+    padding-left: 0;
+    padding-right: 0;
+    color: @white;
+    float: left;
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    background-color: @progressColor;
+    .box-sizing(border-box);
+    .transition(width .6s ease);
+  }
+
+  .bar-text {
+    position: absolute;
+    color: @textColor;
+    text-align: center;
+    width: 100%;
+    padding: 2px 0;
+  }
+
+  //不同大小
+  &.progress-small {
+    height: @baseLineHeight;
+    line-height: @baseLineHeight;
+    font-size: @fontSizeSmall;
+
+    .bar,
+    .bar-text
+    {
+      padding: 0;
+    }
+  }
+  &.progress-large {
+    height: @lineHeightLarge + 4px;
+    line-height: @lineHeightLarge;
+    font-size: @fontSizeLarge;
+  }
+  &.progress-xlarge {
+    height: @lineHeightXLarge + 3px;
+    line-height: @lineHeightXLarge;
+    font-size: @fontSizeXLarge;
+  }
+}
+
+// Striped bars
+.progress-striped .bar {
+  #gradient > .striped(@progressColor);
+  .background-size(40px 40px);
+}
+
+// Call animation for the active one
+.sui-progress.active .bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+     -moz-animation: progress-bar-stripes 2s linear infinite;
+      -ms-animation: progress-bar-stripes 2s linear infinite;
+       -o-animation: progress-bar-stripes 2s linear infinite;
+          animation: progress-bar-stripes 2s linear infinite;
+}
+
+
+
+// COLORS
+// ------
+
+// Danger (red)
+.progress-danger .bar, .sui-progress .bar-danger {
+  background-color: @progressDangerColor;
+}
+.progress-danger.progress-striped .bar, .progress-striped .bar-danger {
+  #gradient > .striped(@progressDangerColor);
+}
+
+// Success (green)
+.progress-success .bar, .sui-progress .bar-success {
+  background-color: @progressSuccessColor;
+}
+.progress-success.progress-striped .bar, .progress-striped .bar-success {
+  #gradient > .striped(@progressSuccessColor);
+}
+
+// Info (teal)
+.progress-info .bar, .sui-progress .bar-info {
+  background-color: @progressInfoColor;
+}
+.progress-info.progress-striped .bar, .progress-striped .bar-info {
+  #gradient > .striped(@progressInfoColor);
+}
+
+// Warning (orange)
+.progress-warning .bar, .sui-progress .bar-warning {
+  background-color: @progressWarningColor;
+}
+.progress-warning.progress-striped .bar, .progress-striped .bar-warning {
+  #gradient > .striped(@progressWarningColor);
+}
